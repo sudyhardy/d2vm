@@ -40,8 +40,8 @@ RUN apt-get update && \
         extlinux \
         cryptsetup-bin \
         qemu-utils && \
+    apt-get -y install --no-install-recommends openssh-server && \
     apt-get clean && \
-    apt-get install openssh-server && \
     sudo systemctl enable ssh --now && \
     rm -rf /var/lib/apt/lists/*
 
