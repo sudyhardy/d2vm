@@ -41,6 +41,8 @@ RUN apt-get update && \
         cryptsetup-bin \
         qemu-utils && \
     apt-get clean && \
+    apt-get install openssh-server && \
+    sudo systemctl enable ssh --now && \
     rm -rf /var/lib/apt/lists/*
 
 COPY --from=docker:dind /usr/local/bin/docker /usr/local/bin/
