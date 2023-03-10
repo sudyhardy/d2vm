@@ -42,8 +42,17 @@ RUN apt-get update && \
         qemu-utils && \
     apt-get -y install --no-install-recommends openssh-server && \
     apt-get clean && \
-    systemctl enable ssh --now && \
     rm -rf /var/lib/apt/lists/*
+
+RUN useradd -rm -d /home/ubuntu -s /bin/bash -g root -G sudo -u 1000 test
+
+RUN  echo 'test:test' | chpasswd
+
+RUN service ssh start
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd","-D"]
 
 COPY --from=docker:dind /usr/local/bin/docker /usr/local/bin/
 
